@@ -1,0 +1,329 @@
+%!TEX TS-program = pdflatex
+%!TEX encoding = utf8
+
+\documentclass[12pt, twoside]{book}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english, spanish, es-noshorthands]{babel}
+
+%% FONTS: libertine+biolinum+stix
+\usepackage[mono=false]{libertine}
+\usepackage[notext]{stix}
+
+% =============================================================================
+% DATOS IMPORTANTES
+%
+
+\title{TRABAJO DE FIN DE GRADO}
+\author{J. Francisco Martín Lisaso}
+\date{\today}
+\newcommand{\tutores}[1]{\newcommand{\guardatutores}{#1}}
+\tutores{Prof. Andrés Iglesias Prieto\\
+         Prof. Akemi Gálvez Tomida}
+
+% =============================================================================
+% PÁGINAS DE TÍTULOS
+%
+
+\usepackage[final]{pdfpages}
+
+\makeatletter
+\edef\maintitle{\@title}
+\renewcommand\maketitle{%
+  % \begin{titlepage}
+  %     \vspace*{1.5cm}
+  %     \parskip=0pt
+  %     \Huge\bfseries
+  %     \begin{center}
+  %         \leavevmode\includegraphics[totalheight=6cm]{sello.pdf}\\[2cm]
+  %         \@title
+  %     \end{center}
+  %     \vspace{1cm}
+  %     \begin{center}
+  %         \@author
+  %     \end{center}
+  % \end{titlepage}
+  %
+  % \begin{titlepage}
+  % \parindent=0pt
+  % \begin{flushleft}
+  % \vspace*{1.5mm}
+  % \setlength\baselineskip{0pt}
+  % \setlength\parskip{0mm}
+  % \begin{center}
+  %     \leavevmode\includegraphics[totalheight=4.5cm]{sello.pdf}
+  % \end{center}
+  % \end{flushleft}
+  % \vspace{1cm}
+  % \bgroup
+  % \Large \bfseries
+  % \begin{center}
+  % \@title
+  % \end{center}
+  % \egroup
+  % \vspace*{.5cm}
+  % \begin{center}
+  % \@author
+  % \end{center}
+  % \vspace*{1.8cm}
+  % \begin{flushright}
+  % \begin{minipage}{8.45cm}
+  %     Memoria presentada como parte de los requisitos para la obtención del título de
+  %     Grado en Ingeniería Informática por la Universidad de Cantabria.
+  %
+  %     \vspace*{7.5mm}
+  %
+  %     Tutorizada por
+  %     % \vspace*{5mm}
+  % \end{minipage}\par
+  % \begin{tabularx}{8.45cm}[b]{@{}l}
+  %     \guardatutores
+  % \end{tabularx}
+  %  \end{flushright}
+  %     \vspace*{\fill}
+  %  \end{titlepage}
+   %%% Esto es necesario...
+   \pagestyle{tfg}
+   \renewcommand{\chaptermark}[1]{\markright{\thechapter.\space ##1}}
+   \renewcommand{\sectionmark}[1]{}
+   \renewcommand{\subsectionmark}[1]{}
+  }
+\makeatother
+
+% =============================================================================
+% GRÁFICOS Y DEFINICIÓN DE COLORES
+%
+
+\usepackage{tikz}
+% \usepackage[pdftex]{graphicx}
+
+% declare the path(s) where your graphic files are
+\graphicspath{{./resources/}}
+% and their extensions so you won't have to specify these with
+% every instance of \includegraphics
+\DeclareGraphicsExtensions{.eps,.jpeg,.jpg,.pdf,.png}
+
+\definecolor{UCblue}{cmyk}{1,0.09,0,0.56} % #006670
+% \definecolor{Magenta}{cmyk}{0,0.75,0.36,0} % #FF3FA4
+% se definen además otros tres colores: el color base 'UCblue' con brillo
+% aumentado, y los dos colores ternarios adyacentes a su complementario
+\definecolor{UCshinyblue}{cmyk}{0.99,0.08,0,0}
+\definecolor{UCshinyred}{cmyk}{0,0.95,1,0}
+\definecolor{UCshinyyellow}{cmyk}{0,0.32,1,0}
+
+\DeclareTextFontCommand{\textbf}{\bfseries\color{UCblue}}
+%\newcommand\textcolored[1]{\textcolor{UCblue}{\textbf{#1}}}
+
+% =============================================================================
+% MATEMÁTICAS Y TEOREMAS
+%
+
+\usepackage[]{amsmath}
+\usepackage[]{amsthm}
+\usepackage[]{mathtools}
+\usepackage[]{bm}
+\usepackage[]{thmtools}
+\newcommand{\marcador}{\vrule height 10pt depth 2pt width 2pt \hskip .5em\relax}
+\newcommand{\cabeceraespecial}{%
+    \color{UCblue}%
+    \normalfont\bfseries}
+\declaretheoremstyle[
+    spaceabove=\medskipamount,
+    spacebelow=\medskipamount,
+    headfont=\cabeceraespecial\marcador,
+    notefont=\cabeceraespecial,
+    notebraces={(}{)},
+    bodyfont=\normalfont\itshape,
+    postheadspace=1em,
+    numberwithin=chapter,
+    headindent=0pt,
+    headpunct={.}
+    ]{importante}
+\declaretheoremstyle[
+    spaceabove=\medskipamount,
+    spacebelow=\medskipamount,
+    headfont=\normalfont\itshape\color{UCblue},
+    notefont=\normalfont,
+    notebraces={(}{)},
+    bodyfont=\normalfont,
+    postheadspace=1em,
+    numberwithin=chapter,
+    headindent=0pt,
+    headpunct={.}
+    ]{normal}
+\declaretheoremstyle[
+    spaceabove=\medskipamount,
+    spacebelow=\medskipamount,
+    headfont=\normalfont\itshape\color{UCblue},
+    notefont=\normalfont,
+    notebraces={(}{)},
+    bodyfont=\normalfont,
+    postheadspace=1em,
+    headindent=0pt,
+    headpunct={.},
+    numbered=no,
+    qed=\color{UCblue}\marcador
+    ]{demostracion}
+
+% Los nombres de los enunciados. Añade los que necesites.
+\declaretheorem[name=Observaci\'on, style=normal]{remark}
+\declaretheorem[name=Corolario, style=normal]{corollary}
+\declaretheorem[name=Proposici\'on, style=normal]{proposition}
+\declaretheorem[name=Lema, style=normal]{lemma}
+
+\declaretheorem[name=Teorema, style=importante]{theorem}
+\declaretheorem[name=Definici\'on, style=importante]{definition}
+
+\let\proof=\undefined
+\declaretheorem[name=Demostraci\'on, style=demostracion]{proof}
+
+% =============================================================================
+% COMPOSICIÓN DE LA PÁGINA
+%
+
+\usepackage[
+	a4paper,
+    textwidth=80ex,
+	top=2.5cm,
+	bottom=2.5cm,
+]{geometry}
+
+\linespread{1.069}
+\parskip=10pt plus 1pt minus .5pt
+\frenchspacing
+% \raggedright
+
+% =============================================================================
+% COMPOSICIÓN DE LOS TÍTULOS
+%
+
+\usepackage[explicit]{titlesec}
+
+% XXX - Para corregir un bug introducido en 'titlesec' v2.10.1
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd{\ttlh@hang}{\parindent\z@}{\parindent\z@\leavevmode}{}{}
+\patchcmd{\ttlh@hang}{\noindent}{}{}{}
+\makeatother
+% XXX - Para corregir un bug introducido en 'titlesec' v2.10.1
+
+\newcommand{\hsp}{\hspace{20pt}}
+\titleformat{\chapter}[hang]
+	{\Huge\sffamily\bfseries}
+	{\thechapter\hsp\textcolor{UCblue}{\vrule width 2pt}\hsp}{0pt}
+	{#1}
+\titleformat{\section}
+	{\normalfont\Large\sffamily\bfseries}{\thesection\space\space}
+	{1ex}
+	{#1}
+\titleformat{\subsection}
+	{\normalfont\large\sffamily}{\thesubsection\space\space}
+	{1ex}
+	{#1}
+
+% =============================================================================
+% CABECERAS DE PÁGINA
+%
+\usepackage[]{fancyhdr}
+\usepackage[]{emptypage}
+\fancypagestyle{plain}{%
+    \fancyhf{}%
+    \renewcommand{\headrulewidth}{0pt}
+    \renewcommand{\footrulewidth}{0pt}
+}
+\fancypagestyle{tfg}{%
+    \fancyhf{}%
+    \renewcommand{\headrulewidth}{0pt}
+    \renewcommand{\footrulewidth}{0pt}
+    \fancyhead[LE]{{\normalsize\color{UCblue}\bfseries\thepage}\quad
+                    \small\textsc{\MakeLowercase{\maintitle}}}
+    \fancyhead[RO]{\small\textsc{\MakeLowercase{\rightmark}}%
+                    \quad{\normalsize\bfseries\color{UCblue}\thepage}}%
+                    }
+
+
+% =============================================================================
+% TABLAS
+%
+
+\usepackage[]{array} % implements column types for fixed-width cols.
+\usepackage[]{booktabs} % provides \toprule, \bottomrule, \midrule commands
+\usepackage[]{tabu}
+\usepackage[]{tabularx}
+
+% Aumenta el espacio entre filas:
+\renewcommand{\arraystretch}{1.2}
+
+% =============================================================================
+% ELIMINA LA PRIMERA PÁGINA EN BLANCO
+% TODO - quitar
+%
+
+\usepackage{atbegshi}% http://ctan.org/pkg/atbegshi
+\AtBeginDocument{\AtBeginShipoutNext{\AtBeginShipoutDiscard}}
+
+% =============================================================================
+% HIPERVÍNCULOS
+%
+
+\usepackage[]{hyperref}
+\usepackage[]{etoolbox}
+
+\appto\UrlBreaks{\do\-}
+
+\hypersetup{
+	bookmarks = true,
+    colorlinks = false,
+	citebordercolor = {UCshinyyellow},
+	citecolor = {UCshinyyellow},
+	filecolor = {UCblue},
+    linkbordercolor = {UCblue},
+	linkcolor = {UCblue},
+	pdfstartview = {FitH},
+	unicode = true,
+	urlbordercolor = {UCshinyblue},
+	urlcolor = {UCshinyblue}
+}
+
+% =============================================================================
+% OTROS
+%
+
+\usepackage[]{enumitem}
+\usepackage[]{epigraph}
+\usepackage[]{lscape}
+\usepackage[normalem]{ulem}
+
+\setlist{noitemsep}
+
+\setlength\epigraphrule{0pt}
+\setlength\epigraphwidth{8cm}
+\renewcommand{\epigraphsize}{\footnotesize}
+
+% =============================================================================
+% INICIO DEL DOCUMENTO
+%
+
+\begin{document}
+
+% Capítulos:
+
+\pagenumbering{arabic}
+\setcounter{chapter}{0}
+\setcounter{page}{0}
+\mainmatter
+
+% \include{chapters/1_introduccion}
+% \include{chapters/2_ficcion-interactiva}
+% \include{chapters/3_extension-sistema-inform}
+% \include{chapters/4_obras-ejemplo}
+% \include{chapters/5_conclusiones}
+\include{presentacion/notas}
+
+% Bibliografía:
+
+\backmatter
+\bibliographystyle{apalike}
+\bibliography{referencias}
+
+\end{document}
